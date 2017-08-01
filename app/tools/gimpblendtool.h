@@ -61,6 +61,10 @@ struct _GimpBlendTool
   GeglNode           *dist_node;
   GeglBuffer         *dist_buffer;
   GimpDrawableFilter *filter;
+
+  /*  editor  */
+
+  gboolean            modifying;
 };
 
 struct _GimpBlendToolClass
