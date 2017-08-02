@@ -65,6 +65,8 @@ struct _GimpBlendTool
   /*  editor  */
 
   gboolean            modifying;
+
+  GimpToolGui        *gui;
 };
 
 struct _GimpBlendToolClass
