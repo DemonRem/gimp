@@ -67,6 +67,10 @@ struct _GimpBlendTool
   gboolean            modifying;
 
   GimpToolGui        *gui;
+  GtkWidget          *endpoint_editor;
+  GtkWidget          *endpoint_se;
+  GtkWidget          *endpoint_color_panel;
+  GtkWidget          *endpoint_type_combo;
 };
 
 struct _GimpBlendToolClass
