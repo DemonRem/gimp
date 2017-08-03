@@ -78,6 +78,11 @@ struct _GimpBlendTool
   GtkWidget          *stop_right_color_panel;
   GtkWidget          *stop_right_type_combo;
   GtkWidget          *stop_chain_button;
+  GtkWidget          *midpoint_editor;
+  GtkWidget          *midpoint_spinbutton;
+  GtkWidget          *midpoint_type_combo;
+  GtkWidget          *midpoint_color_combo;
+  GtkWidget          *midpoint_center_button;
 };
 
 struct _GimpBlendToolClass

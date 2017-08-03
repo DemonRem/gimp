@@ -63,76 +63,95 @@ typedef enum
 
 /*  local function prototypes  */
 
-static gboolean              gimp_blend_tool_editor_line_can_add_slider           (GimpToolLine         *line,
-                                                                                   gdouble               value,
-                                                                                   GimpBlendTool        *blend_tool);
-static gint                  gimp_blend_tool_editor_line_add_slider               (GimpToolLine         *line,
-                                                                                   gdouble               value,
-                                                                                   GimpBlendTool        *blend_tool);
-static void                  gimp_blend_tool_editor_line_remove_slider            (GimpToolLine         *line,
-                                                                                   gint                  slider,
-                                                                                   GimpBlendTool        *blend_tool);
-static void                  gimp_blend_tool_editor_line_selection_changed        (GimpToolLine         *line,
-                                                                                   GimpBlendTool        *blend_tool);
-static gboolean              gimp_blend_tool_editor_line_handle_clicked           (GimpToolLine         *line,
-                                                                                   gint                  handle,
-                                                                                   GdkModifierType       state,
-                                                                                   GimpButtonPressType   press_type,
-                                                                                   GimpBlendTool        *blend_tool);
+static gboolean              gimp_blend_tool_editor_line_can_add_slider               (GimpToolLine         *line,
+                                                                                       gdouble               value,
+                                                                                       GimpBlendTool        *blend_tool);
+static gint                  gimp_blend_tool_editor_line_add_slider                   (GimpToolLine         *line,
+                                                                                       gdouble               value,
+                                                                                       GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_line_remove_slider                (GimpToolLine         *line,
+                                                                                       gint                  slider,
+                                                                                       GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_line_selection_changed            (GimpToolLine         *line,
+                                                                                       GimpBlendTool        *blend_tool);
+static gboolean              gimp_blend_tool_editor_line_handle_clicked               (GimpToolLine         *line,
+                                                                                       gint                  handle,
+                                                                                       GdkModifierType       state,
+                                                                                       GimpButtonPressType   press_type,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static void                  gimp_blend_tool_editor_gui_response                  (GimpToolGui          *gui,
-                                                                                   gint                  response_id,
-                                                                                   GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_gui_response                      (GimpToolGui          *gui,
+                                                                                       gint                  response_id,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static void                  gimp_blend_tool_editor_color_entry_color_changed     (GimpColorButton      *button,
-                                                                                   GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_color_entry_color_changed         (GimpColorButton      *button,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static void                  gimp_blend_tool_editor_color_entry_type_changed      (GtkComboBox          *combo,
-                                                                                   GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_color_entry_type_changed          (GtkComboBox          *combo,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static void                  gimp_blend_tool_editor_endpoint_se_value_changed     (GimpSizeEntry        *se,
-                                                                                   GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_endpoint_se_value_changed         (GimpSizeEntry        *se,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static void                  gimp_blend_tool_editor_stop_spinbutton_value_changed (GtkAdjustment        *adjustment,
-                                                                                   GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_stop_spinbutton_value_changed     (GtkAdjustment        *adjustment,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static void                  gimp_blend_tool_editor_stop_delete_clicked           (GtkWidget            *button,
-                                                                                   GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_stop_delete_clicked               (GtkWidget            *button,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static gboolean              gimp_blend_tool_editor_is_gradient_editable          (GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_midpoint_spinbutton_value_changed (GtkAdjustment        *adjustment,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static gboolean              gimp_blend_tool_editor_handle_is_endpoint            (GimpBlendTool        *blend_tool,
-                                                                                   gint                  handle);
-static gboolean              gimp_blend_tool_editor_handle_is_stop                (GimpBlendTool        *blend_tool,
-                                                                                   gint                  handle);
-static gboolean              gimp_blend_tool_editor_handle_is_midpoint            (GimpBlendTool        *blend_tool,
-                                                                                   gint                  handle);
-static GimpGradientSegment * gimp_blend_tool_editor_handle_get_segment            (GimpBlendTool        *blend_tool,
-                                                                                   gint                  handle);
+static void                  gimp_blend_tool_editor_midpoint_type_changed             (GtkComboBox          *combo,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static void                  gimp_blend_tool_editor_freeze_gradient               (GimpBlendTool        *blend_tool);
-static void                  gimp_blend_tool_editor_thaw_gradient                 (GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_midpoint_color_changed            (GtkComboBox          *combo,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static gint                  gimp_blend_tool_editor_add_stop                      (GimpBlendTool        *blend_tool,
-                                                                                   gdouble               value);
-static void                  gimp_blend_tool_editor_delete_stop                   (GimpBlendTool        *blend_tool,
-                                                                                   gint                  slider);
+static void                  gimp_blend_tool_editor_midpoint_new_stop_clicked         (GtkWidget            *button,
+                                                                                       GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_midpoint_center_clicked           (GtkWidget            *button,
+                                                                                       GimpBlendTool        *blend_tool);
 
-static void                  gimp_blend_tool_editor_update_sliders                (GimpBlendTool        *blend_tool);
+static gboolean              gimp_blend_tool_editor_is_gradient_editable              (GimpBlendTool        *blend_tool);
 
-static GtkWidget           * gimp_blend_tool_editor_color_entry_new               (GimpBlendTool        *blend_tool,
-                                                                                   const gchar          *title,
-                                                                                   Direction             direction,
-                                                                                   GtkWidget            *chain_button,
-                                                                                   GtkWidget           **color_panel,
-                                                                                   GtkWidget           **type_combo);
-static void                  gimp_blend_tool_editor_init_endpoint_gui             (GimpBlendTool        *blend_tool);
-static void                  gimp_blend_tool_editor_init_stop_gui                 (GimpBlendTool        *blend_tool);
-static void                  gimp_blend_tool_editor_update_endpoint_gui           (GimpBlendTool        *blend_tool,
-                                                                                   gint                  selection);
-static void                  gimp_blend_tool_editor_update_stop_gui               (GimpBlendTool        *blend_tool,
-                                                                                   gint                  selection);
-static void                  gimp_blend_tool_editor_update_gui                    (GimpBlendTool        *blend_tool);
+static gboolean              gimp_blend_tool_editor_handle_is_endpoint                (GimpBlendTool        *blend_tool,
+                                                                                       gint                  handle);
+static gboolean              gimp_blend_tool_editor_handle_is_stop                    (GimpBlendTool        *blend_tool,
+                                                                                       gint                  handle);
+static gboolean              gimp_blend_tool_editor_handle_is_midpoint                (GimpBlendTool        *blend_tool,
+                                                                                       gint                  handle);
+static GimpGradientSegment * gimp_blend_tool_editor_handle_get_segment                (GimpBlendTool        *blend_tool,
+                                                                                       gint                  handle);
+
+static void                  gimp_blend_tool_editor_freeze_gradient                   (GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_thaw_gradient                     (GimpBlendTool        *blend_tool);
+
+static gint                  gimp_blend_tool_editor_add_stop                          (GimpBlendTool        *blend_tool,
+                                                                                       gdouble               value);
+static void                  gimp_blend_tool_editor_delete_stop                       (GimpBlendTool        *blend_tool,
+                                                                                       gint                  slider);
+static gint                  gimp_blend_tool_editor_midpoint_to_stop                  (GimpBlendTool        *blend_tool,
+                                                                                       gint                  slider);
+
+static void                  gimp_blend_tool_editor_update_sliders                    (GimpBlendTool        *blend_tool);
+
+static GtkWidget           * gimp_blend_tool_editor_color_entry_new                   (GimpBlendTool        *blend_tool,
+                                                                                       const gchar          *title,
+                                                                                       Direction             direction,
+                                                                                       GtkWidget            *chain_button,
+                                                                                       GtkWidget           **color_panel,
+                                                                                       GtkWidget           **type_combo);
+static void                  gimp_blend_tool_editor_init_endpoint_gui                 (GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_init_stop_gui                     (GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_init_midpoint_gui                 (GimpBlendTool        *blend_tool);
+static void                  gimp_blend_tool_editor_update_endpoint_gui               (GimpBlendTool        *blend_tool,
+                                                                                       gint                  selection);
+static void                  gimp_blend_tool_editor_update_stop_gui                   (GimpBlendTool        *blend_tool,
+                                                                                       gint                  selection);
+static void                  gimp_blend_tool_editor_update_midpoint_gui               (GimpBlendTool        *blend_tool,
+                                                                                       gint                  selection);
+static void                  gimp_blend_tool_editor_update_gui                        (GimpBlendTool        *blend_tool);
 
 
 /*  private functions  */
@@ -234,13 +253,9 @@ gimp_blend_tool_editor_line_handle_clicked (GimpToolLine        *line,
       if (press_type == GIMP_BUTTON_PRESS_DOUBLE &&
           gimp_blend_tool_editor_is_gradient_editable (blend_tool))
         {
-          const GimpControllerSlider *sliders;
-          gint                        stop;
+          gint stop;
 
-          sliders = gimp_tool_line_get_sliders (line, NULL);
-
-          stop = gimp_blend_tool_editor_add_stop (blend_tool,
-                                                  sliders[handle].value);
+          stop = gimp_blend_tool_editor_midpoint_to_stop (blend_tool, handle);
 
           gimp_tool_line_set_selection (line, stop);
 
@@ -523,6 +538,143 @@ gimp_blend_tool_editor_stop_delete_clicked (GtkWidget     *button,
   gimp_blend_tool_editor_delete_stop (blend_tool, selection);
 }
 
+static void
+gimp_blend_tool_editor_midpoint_spinbutton_value_changed (GtkAdjustment *adjustment,
+                                                          GimpBlendTool *blend_tool)
+{
+  gint                 selection;
+  gdouble              value;
+  GimpGradientSegment *seg;
+
+  if (blend_tool->modifying)
+    return;
+
+  selection =
+    gimp_tool_line_get_selection (GIMP_TOOL_LINE (blend_tool->widget));
+
+  value = gtk_adjustment_get_value (adjustment) / 100.0;
+
+  blend_tool->modifying = TRUE;
+
+  gimp_blend_tool_editor_freeze_gradient (blend_tool);
+
+  seg = gimp_blend_tool_editor_handle_get_segment (blend_tool, selection);
+
+  seg->middle = value;
+
+  gimp_blend_tool_editor_thaw_gradient (blend_tool);
+
+  blend_tool->modifying = FALSE;
+
+  gimp_blend_tool_editor_update_sliders (blend_tool);
+  gimp_blend_tool_editor_update_gui (blend_tool);
+}
+
+static void
+gimp_blend_tool_editor_midpoint_type_changed (GtkComboBox   *combo,
+                                              GimpBlendTool *blend_tool)
+{
+  gint                 selection;
+  gint                 type;
+  GimpGradientSegment *seg;
+
+  if (blend_tool->modifying)
+    return;
+
+  selection =
+    gimp_tool_line_get_selection (GIMP_TOOL_LINE (blend_tool->widget));
+
+  if (! gimp_int_combo_box_get_active (GIMP_INT_COMBO_BOX (combo), &type))
+    return;
+
+  blend_tool->modifying = TRUE;
+
+  gimp_blend_tool_editor_freeze_gradient (blend_tool);
+
+  seg = gimp_blend_tool_editor_handle_get_segment (blend_tool, selection);
+
+  seg->type = type;
+
+  gimp_blend_tool_editor_thaw_gradient (blend_tool);
+
+  blend_tool->modifying = FALSE;
+
+  gimp_blend_tool_editor_update_gui (blend_tool);
+}
+
+static void
+gimp_blend_tool_editor_midpoint_color_changed (GtkComboBox   *combo,
+                                               GimpBlendTool *blend_tool)
+{
+  gint                 selection;
+  gint                 color;
+  GimpGradientSegment *seg;
+
+  if (blend_tool->modifying)
+    return;
+
+  selection =
+    gimp_tool_line_get_selection (GIMP_TOOL_LINE (blend_tool->widget));
+
+  if (! gimp_int_combo_box_get_active (GIMP_INT_COMBO_BOX (combo), &color))
+    return;
+
+  blend_tool->modifying = TRUE;
+
+  gimp_blend_tool_editor_freeze_gradient (blend_tool);
+
+  seg = gimp_blend_tool_editor_handle_get_segment (blend_tool, selection);
+
+  seg->color = color;
+
+  gimp_blend_tool_editor_thaw_gradient (blend_tool);
+
+  blend_tool->modifying = FALSE;
+
+  gimp_blend_tool_editor_update_gui (blend_tool);
+}
+
+static void
+gimp_blend_tool_editor_midpoint_new_stop_clicked (GtkWidget     *button,
+                                                  GimpBlendTool *blend_tool)
+{
+  gint selection;
+  gint stop;
+
+  selection =
+    gimp_tool_line_get_selection (GIMP_TOOL_LINE (blend_tool->widget));
+
+  stop = gimp_blend_tool_editor_midpoint_to_stop (blend_tool, selection);
+
+  gimp_tool_line_set_selection (GIMP_TOOL_LINE (blend_tool->widget), stop);
+}
+
+static void
+gimp_blend_tool_editor_midpoint_center_clicked (GtkWidget     *button,
+                                                GimpBlendTool *blend_tool)
+{
+  gint                 selection;
+  GimpGradientSegment *seg;
+
+  selection =
+    gimp_tool_line_get_selection (GIMP_TOOL_LINE (blend_tool->widget));
+
+  blend_tool->modifying = TRUE;
+
+  gimp_blend_tool_editor_freeze_gradient (blend_tool);
+
+  seg = gimp_blend_tool_editor_handle_get_segment (blend_tool, selection);
+
+  gimp_gradient_segment_range_recenter_handles (blend_tool->gradient, seg, seg);
+
+  gimp_blend_tool_editor_thaw_gradient (blend_tool);
+
+  blend_tool->modifying = FALSE;
+
+  gimp_blend_tool_editor_update_sliders (blend_tool);
+  gimp_blend_tool_editor_update_gui (blend_tool);
+}
+
 static gboolean
 gimp_blend_tool_editor_is_gradient_editable (GimpBlendTool *blend_tool)
 {
@@ -683,6 +835,18 @@ gimp_blend_tool_editor_delete_stop (GimpBlendTool *blend_tool,
   blend_tool->modifying = FALSE;
 
   gimp_blend_tool_editor_update_sliders (blend_tool);
+}
+
+static gint
+gimp_blend_tool_editor_midpoint_to_stop (GimpBlendTool *blend_tool,
+                                         gint           slider)
+{
+  const GimpControllerSlider *sliders;
+
+  sliders = gimp_tool_line_get_sliders (GIMP_TOOL_LINE (blend_tool->widget),
+                                        NULL);
+
+  return gimp_blend_tool_editor_add_stop (blend_tool, sliders[slider].value);
 }
 
 static void
@@ -1083,6 +1247,128 @@ gimp_blend_tool_editor_init_stop_gui (GimpBlendTool *blend_tool)
 }
 
 static void
+gimp_blend_tool_editor_init_midpoint_gui (GimpBlendTool *blend_tool)
+{
+  GtkWidget *editor;
+  GtkWidget *table;
+  GtkWidget *label;
+  GtkWidget *spinbutton;
+  GtkWidget *combo;
+  GtkWidget *separator;
+  gint       row = 0;
+
+  /* the stop editor */
+  blend_tool->midpoint_editor =
+  editor                      = gimp_editor_new ();
+  gtk_box_pack_start (GTK_BOX (gimp_tool_gui_get_vbox (blend_tool->gui)),
+                      editor, FALSE, TRUE, 0);
+
+  /* the main table */
+  table = gtk_table_new (1, 2, FALSE);
+  gtk_table_set_row_spacings (GTK_TABLE (table), 4);
+  gtk_table_set_col_spacings (GTK_TABLE (table), 4);
+  gtk_box_pack_start (GTK_BOX (editor), table, FALSE, TRUE, 0);
+  gtk_widget_show (table);
+
+  /* the position label */
+  label = gtk_label_new (_("Position:"));
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, row, row + 1,
+                    GTK_SHRINK | GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_widget_show (label);
+
+  /* the position spin button */
+  blend_tool->midpoint_spinbutton =
+  spinbutton                      = gtk_spin_button_new_with_range (0.0, 100.0,
+                                                                    1.0);
+  gtk_entry_set_width_chars (GTK_ENTRY (spinbutton), 6);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton), TRUE);
+  gtk_spin_button_set_digits (GTK_SPIN_BUTTON (spinbutton), 2);
+  gtk_table_attach (GTK_TABLE (table), spinbutton, 1, 2, row, row + 1,
+                    GTK_SHRINK | GTK_FILL | GTK_EXPAND,
+                    GTK_SHRINK | GTK_FILL,
+                    0, 0);
+  gtk_widget_show (spinbutton);
+
+  g_signal_connect (
+    gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON (spinbutton)),
+    "value-changed",
+    G_CALLBACK (gimp_blend_tool_editor_midpoint_spinbutton_value_changed),
+    blend_tool);
+
+  row++;
+
+  /* the type label */
+  label = gtk_label_new (_("Blending:"));
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, row, row + 1,
+                    GTK_SHRINK | GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_widget_show (label);
+
+  /* the type combo */
+  blend_tool->midpoint_type_combo =
+  combo                           = gimp_enum_combo_box_new (GIMP_TYPE_GRADIENT_SEGMENT_TYPE);
+  gtk_table_attach (GTK_TABLE (table), combo, 1, 2, row, row + 1,
+                    GTK_SHRINK | GTK_FILL | GTK_EXPAND,
+                    GTK_SHRINK | GTK_FILL,
+                    0, 0);
+  gtk_widget_show (combo);
+
+  g_signal_connect (combo, "changed",
+                    G_CALLBACK (gimp_blend_tool_editor_midpoint_type_changed),
+                    blend_tool);
+
+  row++;
+
+  /* the color label */
+  label = gtk_label_new (_("Coloring:"));
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, row, row + 1,
+                    GTK_SHRINK | GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_widget_show (label);
+
+  /* the color combo */
+  blend_tool->midpoint_color_combo =
+  combo                           = gimp_enum_combo_box_new (GIMP_TYPE_GRADIENT_SEGMENT_COLOR);
+  gtk_table_attach (GTK_TABLE (table), combo, 1, 2, row, row + 1,
+                    GTK_SHRINK | GTK_FILL | GTK_EXPAND,
+                    GTK_SHRINK | GTK_FILL,
+                    0, 0);
+  gtk_widget_show (combo);
+
+  g_signal_connect (combo, "changed",
+                    G_CALLBACK (gimp_blend_tool_editor_midpoint_color_changed),
+                    blend_tool);
+
+  row++;
+
+  /* the action buttons separator */
+  separator = gtk_hseparator_new ();
+  gtk_table_attach (GTK_TABLE (table), separator, 0, 2, row, row + 1,
+                    GTK_SHRINK | GTK_FILL | GTK_EXPAND,
+                    GTK_SHRINK | GTK_FILL,
+                    0, 0);
+  gtk_widget_show (separator);
+
+  row++;
+
+  /* the new stop button */
+  gimp_editor_add_button (GIMP_EDITOR (editor),
+                          GIMP_ICON_DOCUMENT_NEW, _("New stop at midpoint"),
+                          NULL,
+                          G_CALLBACK (gimp_blend_tool_editor_midpoint_new_stop_clicked),
+                          NULL, blend_tool);
+
+  /* the center button */
+  blend_tool->midpoint_center_button =
+    gimp_editor_add_button (GIMP_EDITOR (editor),
+                            GIMP_ICON_CENTER_HORIZONTAL, _("Center midpoint"),
+                            NULL,
+                            G_CALLBACK (gimp_blend_tool_editor_midpoint_center_clicked),
+                            NULL, blend_tool);
+}
+
+static void
 gimp_blend_tool_editor_update_endpoint_gui (GimpBlendTool *blend_tool,
                                             gint           selection)
 {
@@ -1247,6 +1533,64 @@ gimp_blend_tool_editor_update_stop_gui (GimpBlendTool *blend_tool,
 }
 
 static void
+gimp_blend_tool_editor_update_midpoint_gui (GimpBlendTool *blend_tool,
+                                            gint           selection)
+{
+  gboolean                    editable;
+  const GimpGradientSegment  *seg;
+  gint                        index;
+  gchar                      *title;
+  gdouble                     min;
+  gdouble                     max;
+  gdouble                     value;
+  GimpGradientSegmentType     type;
+  GimpGradientSegmentColor    color;
+
+  editable = gimp_blend_tool_editor_is_gradient_editable (blend_tool);
+
+  seg = gimp_blend_tool_editor_handle_get_segment (blend_tool, selection);
+
+  index = GPOINTER_TO_INT (
+    gimp_tool_line_get_sliders (GIMP_TOOL_LINE (blend_tool->widget),
+                                NULL)[selection].data);
+
+  title = g_strdup_printf (_("Midpoint %d"), index + 1);
+
+  min   = seg->left;
+  max   = seg->right;
+  value = seg->middle;
+  type  = seg->type;
+  color = seg->color;
+
+  gimp_tool_gui_set_title (blend_tool->gui, title);
+
+  gtk_spin_button_set_range (GTK_SPIN_BUTTON (blend_tool->midpoint_spinbutton),
+                             100.0 * min, 100.0 * max);
+  gtk_spin_button_set_value (GTK_SPIN_BUTTON (blend_tool->midpoint_spinbutton),
+                             100.0 * value);
+
+  gimp_int_combo_box_set_active (
+    GIMP_INT_COMBO_BOX (blend_tool->midpoint_type_combo), type);
+
+  gimp_int_combo_box_set_active (
+    GIMP_INT_COMBO_BOX (blend_tool->midpoint_color_combo), color);
+
+  gtk_widget_set_sensitive (blend_tool->midpoint_center_button,
+                            fabs (value - (min + max) / 2.0) > EPSILON);
+
+  gtk_widget_set_sensitive (blend_tool->midpoint_spinbutton,  editable);
+  gtk_widget_set_sensitive (blend_tool->midpoint_type_combo,  editable);
+  gtk_widget_set_sensitive (blend_tool->midpoint_color_combo, editable);
+  gtk_widget_set_sensitive (
+    GTK_WIDGET (gimp_editor_get_button_box (GIMP_EDITOR (blend_tool->midpoint_editor))),
+    editable);
+
+  g_free (title);
+
+  gtk_widget_show (blend_tool->midpoint_editor);
+}
+
+static void
 gimp_blend_tool_editor_update_gui (GimpBlendTool *blend_tool)
 {
   GimpBlendOptions *options = GIMP_BLEND_TOOL_GET_OPTIONS (blend_tool);
@@ -1288,6 +1632,7 @@ gimp_blend_tool_editor_update_gui (GimpBlendTool *blend_tool)
 
               gimp_blend_tool_editor_init_endpoint_gui (blend_tool);
               gimp_blend_tool_editor_init_stop_gui     (blend_tool);
+              gimp_blend_tool_editor_init_midpoint_gui (blend_tool);
             }
 
           blend_tool->modifying = TRUE;
@@ -1301,6 +1646,11 @@ gimp_blend_tool_editor_update_gui (GimpBlendTool *blend_tool)
             gimp_blend_tool_editor_update_stop_gui (blend_tool, selection);
           else
             gtk_widget_hide (blend_tool->stop_editor);
+
+          if (gimp_blend_tool_editor_handle_is_midpoint (blend_tool, selection))
+            gimp_blend_tool_editor_update_midpoint_gui (blend_tool, selection);
+          else
+            gtk_widget_hide (blend_tool->midpoint_editor);
 
           blend_tool->modifying = FALSE;
 
