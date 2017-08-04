@@ -2185,6 +2185,12 @@ gimp_blend_tool_editor_line_changed (GimpBlendTool *blend_tool)
 }
 
 void
+gimp_blend_tool_editor_fg_bg_changed (GimpBlendTool *blend_tool)
+{
+  gimp_blend_tool_editor_update_gui (blend_tool);
+}
+
+void
 gimp_blend_tool_editor_gradient_dirty (GimpBlendTool *blend_tool)
 {
   if (blend_tool->widget && ! blend_tool->modifying)
